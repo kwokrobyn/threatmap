@@ -44,6 +44,8 @@ const passportConfig = require('./config/passport');
  * Create Express server.
  */
 const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
 /**
  * Connect to MongoDB.
@@ -220,11 +222,12 @@ app.get('/auth/pinterest/callback', passport.authorize('pinterest', { failureRed
  * Error Handler.
  */
 app.use(errorHandler());
+const socketIO = require('./routes/sockets')(io);
 
 /**
  * Start Express server.
  */
-app.listen(app.get('port'), () => {
+server.listen(app.get('port'), () => {
   console.log('%s App is running at http://localhost:%d in %s mode', chalk.green('✓'), app.get('port'), app.get('env')); 
   console.log('  Press CTRL-C to stop\n');
 });

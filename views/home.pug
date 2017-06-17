@@ -1,27 +1,31 @@
 extends layout
 
 block content
-  h1 Hackathon Starter
-  p.lead A boilerplate for Node.js web applications.
-  hr
   .row
-    .col-sm-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-default(href='#', role='button') View details »
-    .col-sm-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-default(href='#', role='button') View details »
-    .col-sm-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-default(href='#', role='button') View details »
-    .col-sm-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-default(href='#', role='button') View details »
+    #map.col-sm-9
+      
+    #feed.col-sm-3
+      form
+        .form-group
+          label(for='description') Event Description
+          input#description.form-control(type='text', placeholder='Event Description')
+        .form-group
+          label(for='address') Address
+          input#address.form-control(type='text', placeholder='Address')
+        .form-group
+          label(for='categories') Choose a category:
+          select#categories.form-control
+            option People getting hurt 
+            option Stuff getting stolen 
+            option Cars getting crashed
+            option Not sure, just GTFO.
+        .form-group
+          label(for='photo') Attach a Photo 
+          input#photo(type='file')
+          p.help-block Attach a photo of the event! 
+        .form-group
+          label(for='dangerLevel' class="biggerIsBadder") Threat Level
+          input(class='level' type='number', name='quantity', min='1', max='10', value='1')
+          p.help-block 1-10, bigger is badder! 
+          
+        button#submit.btn.btn-default(type='submit') Report!
