@@ -3,6 +3,33 @@ var map;
 var geocoder;
 var activeThreats =[];
 
+var placeSearch, autocomplete;
+
+function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementsByClassName('autocomplete')[0]),
+            {types: ['geocode']});
+}
+
+// Bias the autocomplete object to the user's geographical location,
+// as supplied by the browser's 'navigator.geolocation' object.
+function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+}
 
 function locationSuccess(position) {
   var current = {lat: position.coords.latitude, lng: position.coords.longitude};
@@ -41,7 +68,7 @@ function createNewEvent(lat, lng) {
     dangerLevel: $('#dangerLevel').val()
   }
 
-  var contentString = '<div id="iw-description"> Event:'+ newEvent.name +'</div><div id="iw-address">'+ newEvent.address +'</div><div id="iw-category">'+ newEvent.Category +'</div><div id="iw-dangerLevel">'+ newEvent.dangerLevel +'</div>'
+  var contentString = '<div class="iw-description">Threat:'+ newEvent.name +'</div><div class="iw-address">Location: '+ newEvent.address +'</div><div class="iw-category">Category: '+ newEvent.Category +'</div><div class="iw-dangerLevel">Threat Level: '+ newEvent.dangerLevel +'</div>'
 
   var threatMarker = {
     marker: new google.maps.Marker({
@@ -91,7 +118,7 @@ function geocodeAddress(geocoder, resultsMap) {
 $(document).ready(function() {
 
   initMap();
-
+  initAutocomplete();
   socket = io.connect('//localhost:3000/', {secure: true, transports: ['websocket']});
 
   // var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
@@ -108,7 +135,7 @@ $(document).ready(function() {
     data.forEach((threat, index) => {
       console.log(threat.dangerLevel);
 
-      var contentString = '<div id="iw-description">'+ threat.name +'</div><div id="iw-address">'+ threat.address +'</div><div id="iw-category">'+ threat.Category +'</div><div id="iw-dangerLevel">'+ threat.dangerLevel +'</div>'
+      var contentString = '<div class="iw-description">Threat: '+ threat.name +'</div><div class="iw-address">Location: '+ threat.address +'</div><div class="iw-category">Category: '+ threat.Category +'</div><div class="iw-dangerLevel">Threat Level: '+ threat.dangerLevel +'</div>'
 
       var threatMarker = {
         id: threat.id,
@@ -144,9 +171,6 @@ $(document).ready(function() {
     // dangerLevel: $('#dangerLevel').val(),
     //additional CRUD stuff
   });
-
-
-
 
     // marker.setMap(map);
 

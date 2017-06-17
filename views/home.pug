@@ -11,7 +11,7 @@ block content
           input#description.form-control(type='text', placeholder='Event Description')
         .form-group
           label(for='address') Address
-          input#address.form-control(type='text', placeholder='Address')
+          input.autocomplete#address.form-control(type='text', onfocus='geolocate()', placeholder='Address')
         .form-group
           label(for='categories') Choose a category:
           select#categories.form-control

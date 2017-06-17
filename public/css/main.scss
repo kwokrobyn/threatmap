@@ -80,3 +80,22 @@ html, body, .container-fluid, .row, #map, #feed {
 label {
   margin-right: 15px;
 }
+
+// info window
+
+.iw-description {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.iw-address {
+  font-size: 18px;
+}
+
+.iw-category {
+  font-size: 18px;
+}
+
+.iw-dangerLevel {
+  font-size: 18px;
+}
