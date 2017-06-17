@@ -15,6 +15,8 @@ const flash = require('express-flash');
 const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const passportSocketIo = require('passport.socketio');
+// const sessionstore = require('sessionstore');
 const expressValidator = require('express-validator');
 const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
@@ -46,6 +48,21 @@ const passportConfig = require('./config/passport');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
+
+// app.use(express.session({
+//     store: sessionstore.createSessionStore({
+//         type: 'mongodb'
+//     })
+// }));
+//
+// /* Adding middleware to use passport with socket.io */
+// io.use(passportSocketIo.authorize({
+//   key: 'connect.sid',
+//   secret: process.env.SECRET_KEY_BASE,
+//   store: sessionstore,
+//   passport: passport,
+//   cookieParser: cookieParser
+// }));
 
 /**
  * Connect to MongoDB.

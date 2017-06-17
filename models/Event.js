@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import user from './User';
+const mongoose = require('mongoose');
+const user = require('./User');
 
 const eventSchema = new mongoose.Schema({
   id: Number,
@@ -9,7 +9,7 @@ const eventSchema = new mongoose.Schema({
   lng: Number,
   Category: String,
   dangerLevel: { type: Number, min: 1, max: 10 },
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  user: user.schema,
 }, { timestamps: true });
 
 const Event = mongoose.model('Event', eventSchema);

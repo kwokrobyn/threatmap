@@ -1,10 +1,8 @@
 
 var map;
 var geocoder;
-//const uuidv4 = require('uuid/v4');
-//const mongoose = require('mongoose');
-//const event = require('Event');
-//import event from '../../models/Event';
+var activeMarkers;
+
 
 function locationSuccess(position) {
   var current = {lat: position.coords.latitude, lng: position.coords.longitude};
@@ -45,6 +43,7 @@ function createNewEvent(lat, lng) {
 
   console.log('new event lat', newEvent.lat);
 
+
   socket.emit('newEvent', newEvent);
 }
 
@@ -60,6 +59,7 @@ function geocodeAddress(geocoder, resultsMap) {
         map: resultsMap,
         position: results[0].geometry.location
       });
+      activeMarkers.push(marker);
 
       createNewEvent(results[0].geometry.location.lat(), results[0].geometry.location.lng());
     }
@@ -83,6 +83,11 @@ $(document).ready(function() {
   //   zoom: 4,
   //   center: myLatlng
   // }
+
+  // Populate map with existing events
+  socket.on('getExistingEvents', function(data) {
+
+  })
 
   document.getElementById('submit').addEventListener('click', function(e) {
     e.preventDefault();
