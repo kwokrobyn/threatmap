@@ -29,8 +29,8 @@ module.exports = (io) => {
 
     socket.on('newEvent', (e) => {
       console.log('Event sent to backend: ', e);
-      let newEvent = new event({
-        id = uuid();
+      let newEvent = new eventdb({
+        id: uuid(),
         name: e.name,
         address: e.address,
         lat: e.lat,

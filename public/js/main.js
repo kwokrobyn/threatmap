@@ -1,7 +1,7 @@
 
 var map;
 var geocoder;
-var activeMarkers;
+var activeThreats =[];
 
 
 function locationSuccess(position) {
@@ -41,14 +41,31 @@ function createNewEvent(lat, lng) {
     dangerLevel: $('#dangerLevel').val()
   }
 
-  console.log('new event lat', newEvent.lat);
+  var contentString = '<div id="iw-description"> Event:'+ newEvent.name +'</div><div id="iw-address">'+ newEvent.address +'</div><div id="iw-category">'+ newEvent.Category +'</div><div id="iw-dangerLevel">'+ newEvent.dangerLevel +'</div>'
+
+  var threatMarker = {
+    marker: new google.maps.Marker({
+      map: map,
+      position: {lat: newEvent.lat, lng: newEvent.lng},
+    }),
+    iw: new google.maps.InfoWindow({
+      content: contentString
+    })
+  }
+
+  // add listener to this threat's marker
+  threatMarker.marker.addListener('click', function() {
+      threatMarker.iw.open(map, threatMarker.marker);
+    });
+
+  activeThreats.push(threatMarker);
+
 
 
   socket.emit('newEvent', newEvent);
 }
 
 function geocodeAddress(geocoder, resultsMap) {
-  console.log('hello hello')
   var address = document.getElementById('address').value;
   var shame;
   geocoder.geocode({'address': address}, function(results, status) {
@@ -59,7 +76,6 @@ function geocodeAddress(geocoder, resultsMap) {
         map: resultsMap,
         position: results[0].geometry.location
       });
-      activeMarkers.push(marker);
 
       createNewEvent(results[0].geometry.location.lat(), results[0].geometry.location.lng());
     }
@@ -87,6 +103,33 @@ $(document).ready(function() {
   // Populate map with existing events
   socket.on('getExistingEvents', function(data) {
 
+    // indexing into each threat
+    var tempArray = [];
+    data.forEach((threat, index) => {
+      console.log(threat.dangerLevel);
+
+      var contentString = '<div id="iw-description">'+ threat.name +'</div><div id="iw-address">'+ threat.address +'</div><div id="iw-category">'+ threat.Category +'</div><div id="iw-dangerLevel">'+ threat.dangerLevel +'</div>'
+
+      var threatMarker = {
+        id: threat.id,
+        marker: new google.maps.Marker({
+          map: map,
+          position: {lat: threat.lat, lng: threat.lng},
+        }),
+        iw: new google.maps.InfoWindow({
+          content: contentString
+        })
+      }
+
+      // add listener to this threat's marker
+      threatMarker.marker.addListener('click', function() {
+          threatMarker.iw.open(map, threatMarker.marker);
+        });
+
+      tempArray.push(threatMarker);
+    })
+    activeThreats = tempArray;
+    console.log(activeThreats);
   })
 
   document.getElementById('submit').addEventListener('click', function(e) {

@@ -25,7 +25,7 @@ block content
           p.help-block Attach a photo of the event! 
         .form-group
           label(for='dangerLevel' class="biggerIsBadder") Threat Level
-          input(class='level' type='number', name='quantity', min='1', max='10', value='1')
+          input#dangerLevel(class='level' type='number', name='quantity', min='1', max='10', value='1')
           p.help-block 1-10, bigger is badder! 
           
         button#submit.btn.btn-default(type='submit') Report!
