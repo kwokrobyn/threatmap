@@ -68,7 +68,7 @@ function createNewEvent(lat, lng) {
     dangerLevel: $('#dangerLevel').val()
   }
 
-  var contentString = '<div class="iw-description">Threat:'+ newEvent.name +'</div><div class="iw-address">Location: '+ newEvent.address +'</div><div class="iw-category">Category: '+ newEvent.Category +'</div><div class="iw-dangerLevel">Threat Level: '+ newEvent.dangerLevel +'</div>'
+  var contentString = '<div class="iw-description">Threat: '+ newEvent.name +'</div><div class="iw-address">Location: '+ newEvent.address +'</div><div class="iw-category">Category: '+ newEvent.Category +'</div><div class="iw-dangerLevel">Threat Level: '+ newEvent.dangerLevel +'</div>'
 
   var threatMarker = {
     marker: new google.maps.Marker({
@@ -87,7 +87,13 @@ function createNewEvent(lat, lng) {
 
   activeThreats.push(threatMarker);
 
-
+  $('#description').val('');
+  $('#address').val('');
+  //$('select option:contains("People getting hurt")').prop('selected',true);
+  //$('#categories').val();
+  //$('#categories').val('1');
+  //$('#categories').val('1');
+  $('#dangerLevel').val(1);
 
   socket.emit('newEvent', newEvent);
 }
@@ -161,7 +167,6 @@ $(document).ready(function() {
 
   document.getElementById('submit').addEventListener('click', function(e) {
     e.preventDefault();
-
     geocodeAddress(geocoder, map);
 
     console.log("geocoding works");
@@ -177,6 +182,5 @@ $(document).ready(function() {
     // var message = $('#chat input').val();
     // socket.emit('newMessage', message);
     // $('#chat input').val('');
-
 
 });

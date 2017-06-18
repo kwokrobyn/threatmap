@@ -8,17 +8,17 @@ block content
       form
         .form-group
           label(for='description') Event Description
-          input#description.form-control(type='text', placeholder='Event Description')
+          input#description.form-control(type='text', placeholder='What\'s going on?')
         .form-group
           label(for='address') Address
-          input.autocomplete#address.form-control(type='text', onfocus='geolocate()', placeholder='Address')
+          input.autocomplete#address.form-control(type='text', onfocus='geolocate()', placeholder='Where\'s it at?')
         .form-group
           label(for='categories') Choose a category:
           select#categories.form-control
-            option People getting hurt 
+            option People getting hurt
             option Stuff getting stolen 
             option Cars getting crashed
-            option Not sure, just GTFO.
+            option Not sure, just GTFO
         .form-group
           label(for='photo') Attach a Photo 
           input#photo(type='file')
