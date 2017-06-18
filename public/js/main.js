@@ -89,7 +89,10 @@ function createNewEvent(lat, lng) {
 
   $('#description').val('');
   $('#address').val('');
-  //$('#categories').text('People getting hurt');
+  //$('select option:contains("People getting hurt")').prop('selected',true);
+  //$('#categories').val();
+  //$('#categories').val('1');
+  //$('#categories').val('1');
   $('#dangerLevel').val(1);
 
   socket.emit('newEvent', newEvent);
