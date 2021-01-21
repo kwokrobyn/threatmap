@@ -57,7 +57,7 @@
     "pug": "^2.0.0-beta6",
     "request": "^2.78.0",
     "sessionstore": "^1.2.18",
-    "socket.io": "^2.0.3",
+    "socket.io": "^2.4.0",
     "stripe": "^4.12.0",
     "tumblr.js": "^1.1.1",
     "twilio": "^3.3.1-edge",
