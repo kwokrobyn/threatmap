@@ -54,7 +54,7 @@
     "passport-twitter": "^1.0.4",
     "passport.socketio": "^3.7.0",
     "paypal-rest-sdk": "^1.7.0",
-    "pug": "^2.0.0-beta6",
+    "pug": "^3.0.1",
     "request": "^2.78.0",
     "sessionstore": "^1.2.18",
     "socket.io": "^2.0.3",
