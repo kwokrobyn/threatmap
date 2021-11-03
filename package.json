@@ -64,7 +64,7 @@
     "twit": "^2.2.5",
     "uuid": "^3.1.0",
     "uuid-v4": "^0.1.0",
-    "validator": "^7.0.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
